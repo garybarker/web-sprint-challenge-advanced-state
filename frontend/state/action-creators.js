@@ -86,14 +86,29 @@ export function postAnswer(quiz_id, answer_id) {
   })
   .catch(err => {
     console.error(err)
+    dispatch(setMessage("There was an error"))
   })
 }
 }
-export function postQuiz() {
+export function postQuiz(form) {
   return function (dispatch) {
     // On successful POST:
-    axios.post(`${URL}/new`, {question_text: this.state.form.newQuestion.text})
+    axios.post(`${URL}/new`, {
+      question_text: form.newQuestion,
+      true_answer_text: form.newTrueAnswer,
+      false_answer_text: form.newFalseAnswer
+    })
+    .then(res => {
+      console.log(res)
+      dispatch(setMessage(`Congrats ${res.data.question} is a great question!`))
+      dispatch(resetForm())
+    })
+    .catch(err => {
+      console.error(err)
+      dispatch(setMessage('There was an error'))
+    })
     // - Dispatch the correct message to the the appropriate state
+    
     // - Dispatch the resetting of the form
   }
 }
