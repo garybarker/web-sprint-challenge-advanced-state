@@ -100,7 +100,7 @@ export function postQuiz(form) {
     })
     .then(res => {
       console.log(res)
-      dispatch(setMessage(`Congrats ${res.data.question} is a great question!`))
+      dispatch(setMessage(`Congrats: "${res.data.question}" is a great question!`))
       dispatch(resetForm())
     })
     .catch(err => {

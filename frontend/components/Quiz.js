@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../state/action-creators'
 
@@ -7,9 +7,7 @@ function Quiz(props) {
   const {quiz, selectedAnswer, selectAnswer, fetchQuiz, postAnswer} = props
 
 
-  useEffect(() => {
-    fetchQuiz()
-  }, []);
+  
 
   
 
@@ -37,9 +35,14 @@ function Quiz(props) {
             })}
             </div>
 
-            <button id="submitAnswerBtn" onClick={() => postAnswer(quiz.quiz_id, selectedAnswer)}>Submit answer</button>
+            <button id="submitAnswerBtn" onClick={() => postAnswer(quiz.quiz_id, selectedAnswer)}
+              disabled={selectedAnswer ? false : true}
+            >Submit answer</button>
           </>
-        ) : 'Loading next quiz...'
+        ) : (
+          fetchQuiz(),
+         'Loading next quiz...' 
+        )
       }
     </div>
   )
