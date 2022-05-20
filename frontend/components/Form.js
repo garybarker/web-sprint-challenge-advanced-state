@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import * as actionCreators from '../state/action-creators'
+import * as actions from '../state/action-creators'
 
 export function Form(props) {
 
-  const onChange = evt => {
+  const {inputChange} = props
 
+  const onChange = evt => {
+    const [id, value] = evt.target;
+    inputChange(id, value)
   }
 
   const onSubmit = evt => {
@@ -23,4 +26,4 @@ export function Form(props) {
   )
 }
 
-export default connect(st => st, actionCreators)(Form)
+export default connect(st => st, actions)(Form)

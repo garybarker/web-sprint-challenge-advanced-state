@@ -1,28 +1,38 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../state/action-creators'
 
-export default function Quiz(props) {
+function Quiz(props) {
+
+  const {quiz, selectedAnswer, selectAnswer, fetchQuiz} = props
+
+
+  useEffect(() => {
+    fetchQuiz()
+  }, []);
+
   return (
     <div id="wrapper">
       {
-        // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        true ? (
+        
+        quiz !== null ? (
           <>
-            <h2>What is a closure?</h2>
+            
+            <h2>{quiz.question}</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
-                A function
-                <button>
-                  SELECTED
-                </button>
-              </div>
+            {quiz.answers.map(answer => {
+              return (
+                <div className={selectedAnswer === answer.answer_id ? "answer selected" : "answer"}  
+                  key={answer.answer_id} id={answer.answer_id}>
+                  {answer.text}
 
-              <div className="answer">
-                An elephant
-                <button>
-                  Select
-                </button>
-              </div>
+                  <button onClick={() => selectAnswer(answer.answer_id)}>
+                      {selectedAnswer === answer.answer_id ? 'SELECTED' : 'Select'}
+                  </button>
+                </div>
+              )
+            })}
             </div>
 
             <button id="submitAnswerBtn">Submit answer</button>
@@ -32,3 +42,5 @@ export default function Quiz(props) {
     </div>
   )
 }
+
+export default connect(st => st, actions)(Quiz)
