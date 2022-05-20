@@ -4,12 +4,14 @@ import * as actions from '../state/action-creators'
 
 function Quiz(props) {
 
-  const {quiz, selectedAnswer, selectAnswer, fetchQuiz} = props
+  const {quiz, selectedAnswer, selectAnswer, fetchQuiz, postAnswer} = props
 
 
   useEffect(() => {
     fetchQuiz()
   }, []);
+
+  
 
   return (
     <div id="wrapper">
@@ -35,7 +37,7 @@ function Quiz(props) {
             })}
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button id="submitAnswerBtn" onClick={() => postAnswer(quiz.quiz_id, selectedAnswer)}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }

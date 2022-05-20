@@ -42,13 +42,10 @@ export function setQuiz(quiz) {
   }
 }
 
-export function inputChange(id, value) { 
+export function inputChange(inputId, value) { 
   return {
     type: types.INPUT_CHANGE,
-    payload: {
-      inputId: id,
-      value: value
-    }
+    payload: {inputId, value}
   }
 }
 
