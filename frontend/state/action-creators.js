@@ -86,7 +86,7 @@ export function postAnswer(quiz_id, answer_id) {
   })
   .catch(err => {
     console.error(err)
-    dispatch(setMessage("There was an error"))
+    dispatch(setMessage(err.message))
   })
 }
 }
@@ -105,7 +105,7 @@ export function postQuiz(form) {
     })
     .catch(err => {
       console.error(err)
-      dispatch(setMessage('There was an error'))
+      dispatch(setMessage(err.message))
     })
     // - Dispatch the correct message to the the appropriate state
     
